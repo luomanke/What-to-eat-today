@@ -9,9 +9,6 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -125,8 +121,20 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter.setOnItemSelectListener(new OnItemSelectListener() {
             @Override
-            public void onItemSelect(int position) {
-                a = position;
+            public void onGoBtnSelect(int position) {
+                String temp = rests.get(position).toString().replaceAll("[\\[\\]]","");
+                String[] result = temp.split(",");
+                int index = randomGenerator.nextInt(result.length);
+                // YELP selected
+                if (titles.get(position).toString().equals("YELP Recommendation")) {
+                    String selected = P.getYelpSelected(result[index].trim());
+                    Intent i = new Intent(MainActivity.this, ResultActivity.class);
+                    i.putExtra("selected", selected);
+                    startActivity(i);
+                }
+
+                Toast.makeText(MainActivity.this, "Let's go: " + result[index], Toast.LENGTH_SHORT).show();
+//                a = position;
             }
 
             @Override
@@ -145,24 +153,24 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mAdapter);
 
-        final Button go = (Button) findViewById(R.id.button_id);
-        go.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String temp = rests.get(a).toString().replaceAll("[\\[\\]]","");
-                String[] result = temp.split(",");
-                int index = randomGenerator.nextInt(result.length);
-                // YELP selected
-                if (titles.get(a).toString().equals("YELP Recommendation")) {
-                    String selected = P.getYelpSelected(result[index].trim());
-                    Log.e("TEST            ",selected);
-                    Intent i = new Intent(MainActivity.this, ResultActivity.class);
-                    i.putExtra("selected", selected);
-                    startActivity(i);
-                }
-
-                Toast.makeText(MainActivity.this, "Let's go: " + result[index], Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
+//        final Button go = (Button) findViewById(R.id.button_id);
+//        go.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                String temp = rests.get(a).toString().replaceAll("[\\[\\]]","");
+//                String[] result = temp.split(",");
+//                int index = randomGenerator.nextInt(result.length);
+//                // YELP selected
+//                if (titles.get(a).toString().equals("YELP Recommendation")) {
+//                    String selected = P.getYelpSelected(result[index].trim());
+//                    Intent i = new Intent(MainActivity.this, ResultActivity.class);
+//                    i.putExtra("selected", selected);
+//                    startActivity(i);
+//                    a = 0;
+//                }
+//
+//                Toast.makeText(MainActivity.this, "Let's go: " + result[index], Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//        );
     }
 }

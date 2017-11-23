@@ -63,13 +63,7 @@ public class ResultActivity extends AppCompatActivity {
             mTextView.setText(res.get(i).toString());
             mLocation.addView(mTextView);
         }
-
-
         mImageView.setImageBitmap(getImageBitmap(res.get(3).toString()));
-
-
-
-        // Log.e("TEST         ", selected);
 
     }
 

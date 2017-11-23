@@ -5,7 +5,7 @@ package com.example.luoma.myapplication;
  */
 
 public interface OnItemSelectListener {
-    void onItemSelect(int position);
+    void onGoBtnSelect(int position);
 
     void OnAddBtnSelect();
 

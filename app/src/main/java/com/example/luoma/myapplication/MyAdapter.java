@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 
@@ -19,11 +19,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     //our items
     private List mDataset;
-
     private static final int FOOTER_VIEW = 1;
-
-    private int mCheckedPosition = 0;
-
     OnItemSelectListener mOnItemSelectListener;
 
     public MyAdapter(List myDataset) {
@@ -48,18 +44,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
             });
         }
     }
-
     // Now define the viewholder for Normal list item
     public class NormalViewHolder extends ViewHolder {
         public NormalViewHolder(View itemView) {
             super(itemView);
             mSwipeView = (SwipeLayout) itemView;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Do whatever you want on clicking the normal items
-                }
-            });
         }
     }
 
@@ -87,23 +76,18 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
             if (holder instanceof NormalViewHolder) {
                 NormalViewHolder vh = (NormalViewHolder) holder;
 
-                RadioButton r = (RadioButton) vh.mSwipeView.findViewById(R.id.radio_data);
-                r.setText(mDataset.get(position).toString());
-                r.setTag(position);
-                r.setChecked(position == mCheckedPosition);
-                r.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View view) {
-                                             mCheckedPosition = (Integer) view.getTag();
-                                             if(mOnItemSelectListener!=null){
-                                                 mOnItemSelectListener.onItemSelect(mCheckedPosition);
-                                             }
-                                             notifyDataSetChanged();
-                                         }
-                                     });
+                TextView t = (TextView) vh.mSwipeView.findViewById(R.id.position);
+                t.setText(mDataset.get(position).toString());
 
-                Button b = (Button) vh.mSwipeView.findViewById(R.id.delete);
-                b.setOnClickListener(new View.OnClickListener() {
+                Button goButton = (Button) vh.mSwipeView.findViewById(R.id.go);
+                goButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        mOnItemSelectListener.onGoBtnSelect(position);
+                    }
+                });
+
+                Button delButton = (Button) vh.mSwipeView.findViewById(R.id.delete);
+                delButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         mOnItemSelectListener.onDelBtnSelect(position);
                         mDataset.remove(position);
@@ -115,7 +99,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
             }
 //            else if (holder instanceof FooterViewHolder) {
 //                // FooterViewHolder vh = (FooterViewHolder) holder;
-//
 //            }
         } catch (Exception e) {
             e.printStackTrace();

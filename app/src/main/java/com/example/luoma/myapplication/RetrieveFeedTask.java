@@ -15,11 +15,8 @@ import static com.example.luoma.myapplication.MainActivity.appToken;
  */
 
 public class RetrieveFeedTask extends AsyncTask<String, Void, String> {
-
     private Exception exception;
-
     OkHttpClient client = new OkHttpClient();
-
 
     public String run(String url) throws IOException {
         Request request = new Request.Builder()
@@ -30,7 +27,6 @@ public class RetrieveFeedTask extends AsyncTask<String, Void, String> {
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
-
 
     protected String doInBackground(String... urls) {
 
@@ -43,10 +39,7 @@ public class RetrieveFeedTask extends AsyncTask<String, Void, String> {
         }
         return null;
     }
-
     protected void onPostExecute() {
-
-
         // TODO: check this.exception
         // TODO: do something with the feed
     }

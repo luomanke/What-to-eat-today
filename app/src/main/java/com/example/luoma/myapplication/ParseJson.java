@@ -23,7 +23,6 @@ public class ParseJson {
     public List<String> getNameList() {
         JsonElement jelement = new JsonParser().parse(jsonData);
         JsonObject jobject = jelement.getAsJsonObject();
-        // jobject = jobject.getAsJsonObject("businesses");
         JsonArray jarray = jobject.getAsJsonArray("businesses");
 
         List<String> nameList = new ArrayList<String>();
@@ -32,12 +31,10 @@ public class ParseJson {
             nameList.add(jobject.get("name").toString());
         }
 
-//        String result = jobject.get("translatedText").toString();
         return nameList;
     }
 
     public String getYelpSelected (String target) {
-//        Log.d("TEST            ","jData: "+jsonData);
         JsonElement jelement = new JsonParser().parse(jsonData);
         JsonObject jobject = jelement.getAsJsonObject();
         JsonArray jarray = jobject.getAsJsonArray("businesses");
