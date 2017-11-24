@@ -23,7 +23,7 @@
             android:layout_height="fill_parent"
             android:padding="10dp"
             android:text="Category Title:"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#000"
             android:gravity="center"
             app:layout_constraintLeft_toLeftOf="parent" />
@@ -37,7 +37,7 @@
             app:layout_constraintLeft_toRightOf="@+id/textView"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Restaurants to be added: "
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#000"
             android:gravity="center"
             />
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             android:padding="10dp"
             android:hint="Something"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#000"
             android:gravity="center"
             />
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@+id/EditText2"
             android:padding="10dp"
             android:hint="Something"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#000"
             android:gravity="center"
             />

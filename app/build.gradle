@@ -7,9 +7,12 @@ android {
     defaultConfig {
         applicationId "com.example.luoma.myapplication"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
 
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -51,10 +54,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
 
     //ViewHover
-//    compile 'com.nineoldandroids:library:2.4.0'
-//    compile 'com.daimajia.easing:library:1.0.0@aar'
-//    compile 'com.daimajia.androidanimations:library:1.1.2@aar'
-//    compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.easing:library:1.0.0@aar'
+    compile 'com.daimajia.androidanimations:library:1.1.2@aar'
+    compile 'com.daimajia.androidviewhover:library:1.0.4@aar'
     
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:support-v4:26.+'

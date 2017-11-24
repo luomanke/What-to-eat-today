@@ -2,6 +2,7 @@
 <com.daimajia.swipe.SwipeLayout
     xmlns:swipe="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="150dp"
         android:gravity="center"
         android:tag="Bottom3"
         android:weightSum="10">
@@ -38,7 +39,7 @@
             android:layout_weight="4.5"
             android:textColor="#ffffff"
             android:background="#FF5534"
-            android:text="@+string/Delete"/>
+            android:text="Delete"/>
     </LinearLayout>
 
     <LinearLayout
@@ -47,14 +48,20 @@
         android:background="@drawable/item_selector"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/position"
+        <com.daimajia.androidviewhover.BlurLayout
+            android:id="@+id/sample"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Something"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:background="#ffffff"/>
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Something"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:background="#ffffff"
+                tools:ignore="HardcodedText" />
+        </com.daimajia.androidviewhover.BlurLayout>
 
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidviewhover.BlurLayout;
 import com.daimajia.swipe.SwipeLayout;
 
 import java.util.List;
@@ -49,6 +51,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
         public NormalViewHolder(View itemView) {
             super(itemView);
             mSwipeView = (SwipeLayout) itemView;
+            BlurLayout sampleLayout = (BlurLayout)mSwipeView.findViewById(R.id.sample);
+            View hover = LayoutInflater.from(itemView.getContext()).inflate(R.layout.hover_layout,null);
+            sampleLayout.setHoverView(hover);
+            sampleLayout.addChildAppearAnimator(hover, R.id.delete, Techniques.FlipInX);
+            sampleLayout.addChildDisappearAnimator(hover, R.id.delete, Techniques.FlipOutX);
+
         }
     }
 
@@ -82,6 +90,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
                 Button goButton = (Button) vh.mSwipeView.findViewById(R.id.go);
                 goButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
+//                        notifyDataSetChanged();
                         mOnItemSelectListener.onGoBtnSelect(position);
                     }
                 });

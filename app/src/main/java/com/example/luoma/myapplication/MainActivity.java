@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private int a = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(MainActivity.this, "Let's go: " + result[index], Toast.LENGTH_SHORT).show();
-//                a = position;
             }
 
             @Override

@@ -101,8 +101,7 @@ public class CreateActivity extends AppCompatActivity {
 
                 List itemIds = new ArrayList<>();
                 while(cursor.moveToNext()) {
-                    long itemId = cursor.getLong(
-                            cursor.getColumnIndexOrThrow(varRepo.FeedEntry._ID));
+                    long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(varRepo.FeedEntry._ID));
                     String title_t = cursor.getString(cursor.getColumnIndexOrThrow(varRepo.FeedEntry.COLUMN_NAME_TITLE));
                     itemIds.add(itemId);
                 }
