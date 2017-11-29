@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // How you want the results sorted in the resulting Cursor
-        String sortOrder =
-                COLUMN_NAME_RESTAURANT + " DESC";
+//        String sortOrder =
+//                COLUMN_NAME_RESTAURANT + " DESC";
 
         final Cursor cursor = db.query(
                 TABLE_NAME,                     // The table to query
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 null,                                       // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
-                sortOrder                                 // The sort order
+                null                                 // The sort order
         );
 
         final List titles = new ArrayList<>();
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(titles);
+        mAdapter = new MyAdapter(titles, rests);
 
         mAdapter.setOnItemSelectListener(new OnItemSelectListener() {
             @Override

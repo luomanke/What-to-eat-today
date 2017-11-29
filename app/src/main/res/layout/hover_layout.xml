@@ -4,12 +4,38 @@
     android:id="@+id/hover_layout"
     android:background="#88000000"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:layout_marginRight="20dp"
-        android:id="@+id/delete"
-        android:layout_centerInParent="true"
-        android:src="@drawable/delete"
-        android:layout_width="25dp"
-        android:layout_height="25dp" />
+    android:layout_height="match_parent"
+>
+    <!--<ImageView-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:id="@+id/delete"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:src="@drawable/delete"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:weightSum="10"
+        android:layout_margin="10dp">
+
+        <ListView
+            android:id="@+id/rests_lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:scrollbars="vertical"/>
+
+        <Button
+            android:id="@+id/go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#9bff84"
+            android:text="GO"
+            android:layout_weight="4"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
 </RelativeLayout>
