@@ -66,12 +66,36 @@ public class MainActivity extends AppCompatActivity {
         P.setJsonData(jString);
         List<String> nameList = P.getNameList();
 
-        // YELP list
+        String selection = COLUMN_NAME_TITLE + " = ?";
+        String[] selectionArgs = { "YELP Recommendation" };
+
+        String[] projectionYelp = {
+                COLUMN_NAME_TITLE};
+
+        final Cursor cursorYelp = db.query(
+                TABLE_NAME,                     // The table to query
+                projectionYelp,                               // The columns to return
+                selection,                                       // The columns for the WHERE clause
+                selectionArgs,                                       // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+
         ContentValues values = new ContentValues();
         values.put("title", "YELP Recommendation");
         values.put("restaurant", nameList.toString());
-        db.update("entry", values, "title='YELP Recommendation'", null);
-        // END     -     UPDATE YELP DATA
+        if (cursorYelp.moveToNext()) {
+            // YELP list
+            db.update("entry", values, "title='YELP Recommendation'", null);
+            // END     -     UPDATE YELP DATA
+        }
+        else {
+            // Insert the new row, returning the primary key value of the new row
+            long newRowId = db.insert(TABLE_NAME, null, values);
+        }
+
+
 
         String[] projection = {
                 COLUMN_NAME_TITLE,
