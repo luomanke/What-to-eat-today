@@ -93,12 +93,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
                 BlurLayout sampleLayout = (BlurLayout)vh.mSwipeView.findViewById(R.id.sample);
                 View hover = LayoutInflater.from(vh.mSwipeView.getContext()).inflate(R.layout.hover_layout,null);
                 sampleLayout.setHoverView(hover);
-                sampleLayout.addChildAppearAnimator(hover, R.id.go, Techniques.FlipInX);
-                sampleLayout.addChildDisappearAnimator(hover, R.id.go, Techniques.FlipOutX);
-                sampleLayout.addChildAppearAnimator(hover, R.id.rests_gv, Techniques.FlipInX);
-                sampleLayout.addChildDisappearAnimator(hover, R.id.rests_gv, Techniques.FlipOutX);
 
-                // ListView in HoverLayout
+                sampleLayout.addChildAppearAnimator(hover, R.id.go, Techniques.SlideInRight);
+                sampleLayout.addChildDisappearAnimator(hover, R.id.go, Techniques.SlideOutRight);
+
+                // GridView in HoverLayout
+                sampleLayout.addChildAppearAnimator(hover, R.id.rests_gv, Techniques.FadeInLeft);
+                sampleLayout.addChildDisappearAnimator(hover, R.id.rests_gv, Techniques.FadeOutLeft);
                 GridView rest_gv = (GridView) hover.findViewById(R.id.rests_gv);
                 String temp = mRests.get(position).toString().replaceAll("[\\[\\]\"]","");
                 String[] rests = temp.split(", ");

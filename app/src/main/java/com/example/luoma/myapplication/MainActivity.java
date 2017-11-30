@@ -9,6 +9,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -47,11 +48,13 @@ public class MainActivity extends AppCompatActivity {
         // UPDATE YELP DATA
         double longitude = -79.399014;
         double latitude = 43.655820;
+        int radius = 100;
+        int limit = 10;
 
-        String url = "https://api.yelp.com/v3/businesses/search?latitude=" +
-                Double.toString(latitude) +
-                "&longitude=" +Double.toString(longitude) +
-                "&radius=" + "100";
+        String url = "https://api.yelp.com/v3/businesses/search?latitude=" + Double.toString(latitude) +
+                "&longitude=" + Double.toString(longitude) +
+                "&radius=" + radius +
+                "&limit=" + limit;
 
         String jString = null;
         try {
@@ -144,8 +147,10 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setOnItemSelectListener(new OnItemSelectListener() {
             @Override
             public void onGoBtnSelect(int position) {
+                Log.e("BEFORE", "Main position:" + position);
+                Log.e("BEFORE", "Main position content:" + titles.get(0).toString());
                 String temp = rests.get(position).toString().replaceAll("[\\[\\]]","");
-                String[] result = temp.split(",");
+                String[] result = temp.split(", ");
                 int index = randomGenerator.nextInt(result.length);
                 // YELP selected
                 if (titles.get(position).toString().equals("YELP Recommendation")) {

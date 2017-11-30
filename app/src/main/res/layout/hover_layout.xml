@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:numColumns="2"
-            android:horizontalSpacing="3dp"
-            android:layout_gravity="fill"/>
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="5dp"/>
 
         <Button
             android:id="@+id/go"

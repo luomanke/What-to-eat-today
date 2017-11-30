@@ -33,46 +33,5 @@
 </android.support.constraint.ConstraintLayout>
 
 
-    <!--<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/swipe"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/button_id"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent">-->
-        <!--&lt;!&ndash; Bottom View Start&ndash;&gt;-->
-        <!--<ListView-->
-            <!--android:background="#66ddff00"-->
-            <!--android:id="@+id/bottom_wrapper"-->
-            <!--android:layout_width="160dp"-->
-            <!--android:weightSum="1"-->
-            <!--android:layout_height="match_parent">-->
-            <!--&lt;!&ndash;What you want to show&ndash;&gt;-->
-        <!--</ListView>-->
-        <!--&lt;!&ndash; Bottom View End&ndash;&gt;-->
-
-        <!--&lt;!&ndash; Surface View Start &ndash;&gt;-->
-        <!--<ListView-->
-            <!--android:id="@+id/list_view"-->
-            <!--android:padding="10dp"-->
-            <!--android:background="#ffffff"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
-            <!--&lt;!&ndash;What you want to show in SurfaceView&ndash;&gt;-->
-        <!--</ListView>-->
-        <!--&lt;!&ndash; Surface View End &ndash;&gt;-->
-    <!--</com.daimajia.swipe.SwipeLayout>-->
-
-    <!--<ListView-->
-        <!--android:id="@+id/list_view"-->
-        <!--android:scrollbars="vertical"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/button_id"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--&gt;-->
-    <!--</ListView>-->
 
 
