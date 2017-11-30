@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -95,17 +95,17 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
                 sampleLayout.setHoverView(hover);
                 sampleLayout.addChildAppearAnimator(hover, R.id.go, Techniques.FlipInX);
                 sampleLayout.addChildDisappearAnimator(hover, R.id.go, Techniques.FlipOutX);
-                sampleLayout.addChildAppearAnimator(hover, R.id.rests_lv, Techniques.FlipInX);
-                sampleLayout.addChildDisappearAnimator(hover, R.id.rests_lv, Techniques.FlipOutX);
+                sampleLayout.addChildAppearAnimator(hover, R.id.rests_gv, Techniques.FlipInX);
+                sampleLayout.addChildDisappearAnimator(hover, R.id.rests_gv, Techniques.FlipOutX);
 
                 // ListView in HoverLayout
-                ListView rest_lv = (ListView) hover.findViewById(R.id.rests_lv);
-                String temp = mRests.get(position).toString().replaceAll("[\\[\\]\" ]","");
-                String[] rests = temp.split(",");
+                GridView rest_gv = (GridView) hover.findViewById(R.id.rests_gv);
+                String temp = mRests.get(position).toString().replaceAll("[\\[\\]\"]","");
+                String[] rests = temp.split(", ");
                 ArrayList<String> restList = new ArrayList<String>();
                 restList.addAll(Arrays.asList(rests));
                 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(hover.getContext(), R.layout.hover_listviewitem, restList);
-                rest_lv.setAdapter( listAdapter );
+                rest_gv.setAdapter( listAdapter );
 
 
                 // Button go for results

@@ -21,12 +21,14 @@
         android:weightSum="10"
         android:layout_margin="10dp">
 
-        <ListView
-            android:id="@+id/rests_lv"
+        <GridView
+            android:id="@+id/rests_gv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:scrollbars="vertical"/>
+            android:numColumns="2"
+            android:horizontalSpacing="3dp"
+            android:layout_gravity="fill"/>
 
         <Button
             android:id="@+id/go"
