@@ -28,7 +28,7 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create);
+        setContentView(R.layout.activity_create);
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.create_recycler_view);
@@ -41,11 +41,12 @@ public class CreateActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+
         Button addNewRow = (Button) findViewById(R.id.addNewRow);
         addNewRow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText newRow = new EditText(CreateActivity.this);
-                mRecyclerView.addView(newRow);
+
             }
         });
 
@@ -54,11 +55,9 @@ public class CreateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText title = (EditText) findViewById(R.id.EditText1);
                 EditText res1 = (EditText) findViewById(R.id.EditText2);
-                EditText res2 = (EditText) findViewById(R.id.EditText3);
 
                 List test = new ArrayList<>();
                 test.add(res1.getText().toString());
-                test.add(res2.getText().toString());
 
 
                 FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(v.getContext());

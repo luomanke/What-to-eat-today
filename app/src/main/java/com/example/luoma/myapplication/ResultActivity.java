@@ -42,7 +42,7 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.result_activity);
+        setContentView(R.layout.activity_result);
 
         String selected = getIntent().getStringExtra("selected");
 

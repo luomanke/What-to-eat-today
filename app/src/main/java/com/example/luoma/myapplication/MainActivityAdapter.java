@@ -21,7 +21,7 @@ import java.util.List;
  * Created by LuoMa on 10/10/2017.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     //our items
     private List mTitles;
@@ -30,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     OnItemSelectListener mOnItemSelectListener;
 
 
-    public MyAdapter(List titles, List rests) {
+    public MainActivityAdapter(List titles, List rests) {
         mTitles = titles;
         mRests = rests;
     }
@@ -58,7 +58,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
         public NormalViewHolder(View itemView) {
             super(itemView);
             mSwipeView = (SwipeLayout) itemView;
-
         }
     }
 
@@ -73,7 +72,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
             vh = new FooterViewHolder(v);
         }
         else {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_item, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
             vh = new NormalViewHolder(v);
         }
         return vh;
@@ -81,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     // Now bind the viewholders in onBindViewHolder
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         try {
             if (holder instanceof NormalViewHolder) {
                 NormalViewHolder vh = (NormalViewHolder) holder;
@@ -90,39 +89,41 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
                 t.setText(mTitles.get(position).toString());
 
                 // BlurLayout in HoverLayout
-                BlurLayout sampleLayout = (BlurLayout)vh.mSwipeView.findViewById(R.id.sample);
+                BlurLayout mBlurLayout = (BlurLayout)vh.mSwipeView.findViewById(R.id.blurLayout_baseLayer);
                 View hover = LayoutInflater.from(vh.mSwipeView.getContext()).inflate(R.layout.hover_layout,null);
-                sampleLayout.setHoverView(hover);
-
-                sampleLayout.addChildAppearAnimator(hover, R.id.go, Techniques.SlideInRight);
-                sampleLayout.addChildDisappearAnimator(hover, R.id.go, Techniques.SlideOutRight);
+                mBlurLayout.setHoverView(hover);
 
                 // GridView in HoverLayout
-                sampleLayout.addChildAppearAnimator(hover, R.id.rests_gv, Techniques.FadeInLeft);
-                sampleLayout.addChildDisappearAnimator(hover, R.id.rests_gv, Techniques.FadeOutLeft);
+                mBlurLayout.addChildAppearAnimator(hover, R.id.rests_gv, Techniques.FadeInLeft);
+                mBlurLayout.addChildDisappearAnimator(hover, R.id.rests_gv, Techniques.FadeOutLeft);
                 GridView rest_gv = (GridView) hover.findViewById(R.id.rests_gv);
                 String temp = mRests.get(position).toString().replaceAll("[\\[\\]\"]","");
                 String[] rests = temp.split(", ");
                 ArrayList<String> restList = new ArrayList<String>();
                 restList.addAll(Arrays.asList(rests));
-                ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(hover.getContext(), R.layout.hover_listviewitem, restList);
+                ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(hover.getContext(), R.layout.hover_gridviewitem, restList);
                 rest_gv.setAdapter( listAdapter );
 
 
-                // Button go for results
+                // Button go in HoverLayout
+                mBlurLayout.addChildAppearAnimator(hover, R.id.go, Techniques.SlideInRight);
+                mBlurLayout.addChildDisappearAnimator(hover, R.id.go, Techniques.SlideOutRight);
                 Button goButton = (Button) hover.findViewById(R.id.go);
                 goButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
-                        mOnItemSelectListener.onGoBtnSelect(position);
+                        mOnItemSelectListener.onGoBtnSelect(holder.getAdapterPosition());
                     }
                 });
 
+
+                // Button delete in SwipeLayout
                 Button delButton = (Button) vh.mSwipeView.findViewById(R.id.delete);
                 delButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
-                        mOnItemSelectListener.onDelBtnSelect(position);
-                        mTitles.remove(position);
-                        notifyItemRemoved(position);
+                        mOnItemSelectListener.onDelBtnSelect(holder.getAdapterPosition());
+                        mTitles.remove(holder.getAdapterPosition());
+                        mRests.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
                     }
                 });
 
@@ -171,7 +172,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
         // Define elements of a row here
         public SwipeLayout mSwipeView;
         public Button mButton;
-        public Button goButton;
         public ViewHolder(View itemView) {
             super(itemView);
             // Find view by ID and initialize here

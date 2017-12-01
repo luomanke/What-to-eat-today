@@ -9,7 +9,6 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Random randomGenerator = new Random();
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    private MainActivityAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -142,13 +141,11 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(titles, rests);
+        mAdapter = new MainActivityAdapter(titles, rests);
 
         mAdapter.setOnItemSelectListener(new OnItemSelectListener() {
             @Override
             public void onGoBtnSelect(int position) {
-                Log.e("BEFORE", "Main position:" + position);
-                Log.e("BEFORE", "Main position content:" + titles.get(0).toString());
                 String temp = rests.get(position).toString().replaceAll("[\\[\\]]","");
                 String[] result = temp.split(", ");
                 int index = randomGenerator.nextInt(result.length);

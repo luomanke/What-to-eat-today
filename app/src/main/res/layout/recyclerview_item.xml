@@ -49,7 +49,7 @@
         android:background="@drawable/item_selector">
 
         <com.daimajia.androidviewhover.BlurLayout
-            android:id="@+id/sample"
+            android:id="@+id/blurLayout_baseLayer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
