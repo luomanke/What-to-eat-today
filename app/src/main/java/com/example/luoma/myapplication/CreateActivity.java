@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,25 +32,60 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        final List<String> rest_ls = new ArrayList();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.create_recycler_view);
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        final RecyclerView.Adapter mAdapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        Button addNewRow = (Button) findViewById(R.id.addNewRow);
-        addNewRow.setOnClickListener(new View.OnClickListener() {
+            class ViewHolder extends RecyclerView.ViewHolder {
+                // each data item is just a string in this case
+                TextView mTextView;
+                ViewHolder(TextView v) {
+                    super(v);
+                    mTextView = v;
+                }
+            }
+
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                return new ViewHolder(new TextView(parent.getContext()));
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                ViewHolder vh = (ViewHolder) holder;
+                vh.mTextView.setText(rest_ls.get(position));
+            }
+
+            @Override
+            public int getItemCount() {
+                return rest_ls.size();
+            }
+
+        };
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
+        Button addBtn = (Button) findViewById(R.id.add_button);
+        addBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText newRow = new EditText(CreateActivity.this);
-
+                EditText rest = (EditText) findViewById(R.id.rest_input);
+                rest_ls.add(rest.getText().toString());
+                mAdapter.notifyItemInserted(rest_ls.size()-1);
             }
         });
+
+
+
+
 
         final Button create = (Button) findViewById(R.id.add_button);
         create.setOnClickListener(new View.OnClickListener() {
