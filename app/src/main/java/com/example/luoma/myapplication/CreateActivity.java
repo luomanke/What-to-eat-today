@@ -2,16 +2,18 @@ package com.example.luoma.myapplication;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        final List<String> rest_ls = new ArrayList();
+        final List<String> rest_ls = new ArrayList<>();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.create_recycler_view);
         // use this setting to improve performance if you know that changes
@@ -46,22 +48,35 @@ public class CreateActivity extends AppCompatActivity {
 
             class ViewHolder extends RecyclerView.ViewHolder {
                 // each data item is just a string in this case
-                TextView mTextView;
-                ViewHolder(TextView v) {
+                LinearLayout mLinearLayout;
+                ViewHolder(View v) {
                     super(v);
-                    mTextView = v;
+                    mLinearLayout = (LinearLayout) v;
                 }
             }
 
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new ViewHolder(new TextView(parent.getContext()));
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.create_rv_item, parent, false);
+                ViewHolder vh= new ViewHolder(v);
+                return vh;
             }
 
             @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
                 ViewHolder vh = (ViewHolder) holder;
-                vh.mTextView.setText(rest_ls.get(position));
+
+                TextView text_item = (TextView) vh.mLinearLayout.findViewById(R.id.text_item);
+                text_item.setText(rest_ls.get(position));
+
+                ImageButton delBtn = (ImageButton) vh.mLinearLayout.findViewById(R.id.delete_btn);
+
+                delBtn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        rest_ls.remove(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                    }
+                });
             }
 
             @Override
@@ -72,30 +87,20 @@ public class CreateActivity extends AppCompatActivity {
         };
         mRecyclerView.setAdapter(mAdapter);
 
-
-
         Button addBtn = (Button) findViewById(R.id.add_button);
         addBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText rest = (EditText) findViewById(R.id.rest_input);
                 rest_ls.add(rest.getText().toString());
                 mAdapter.notifyItemInserted(rest_ls.size()-1);
+                rest.setText("");
             }
         });
 
-
-
-
-
-        final Button create = (Button) findViewById(R.id.add_button);
+        final Button create = (Button) findViewById(R.id.create_list);
         create.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText title = (EditText) findViewById(R.id.EditText1);
-                EditText res1 = (EditText) findViewById(R.id.EditText2);
-
-                List test = new ArrayList<>();
-                test.add(res1.getText().toString());
-
+                EditText title = (EditText) findViewById(R.id.title_input);
 
                 FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(v.getContext());
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -105,43 +110,10 @@ public class CreateActivity extends AppCompatActivity {
                 // Create a new map of values, where column names are the keys
                 ContentValues values = new ContentValues();
                 values.put(varRepo.FeedEntry.COLUMN_NAME_TITLE, title.getText().toString());
-                values.put(varRepo.FeedEntry.COLUMN_NAME_RESTAURANT, String.valueOf(test));
+                values.put(varRepo.FeedEntry.COLUMN_NAME_RESTAURANT, String.valueOf(rest_ls));
 
                 // Insert the new row, returning the primary key value of the new row
-                long newRowId = db.insert(varRepo.FeedEntry.TABLE_NAME, null, values);
-
-                // **************** READ FROM DB *********************
-                String[] projection = {
-                        varRepo.FeedEntry._ID,
-                        varRepo.FeedEntry.COLUMN_NAME_TITLE,
-                        varRepo.FeedEntry.COLUMN_NAME_RESTAURANT
-                };
-
-                // Filter results WHERE "title" = 'My Title'
-//                String selection = varRepo.FeedEntry.COLUMN_NAME_TITLE + " = ?";
-//                String[] selectionArgs = { "My Title" };
-
-                // How you want the results sorted in the resulting Cursor
-                String sortOrder =
-                        varRepo.FeedEntry.COLUMN_NAME_RESTAURANT + " DESC";
-
-                Cursor cursor = db.query(
-                        varRepo.FeedEntry.TABLE_NAME,                     // The table to query
-                        projection,                               // The columns to return
-                        null,                                       // The columns for the WHERE clause
-                        null,                                       // The values for the WHERE clause
-                        null,                                     // don't group the rows
-                        null,                                     // don't filter by row groups
-                        sortOrder                                 // The sort order
-                );
-
-                List itemIds = new ArrayList<>();
-                while(cursor.moveToNext()) {
-                    long itemId = cursor.getLong(cursor.getColumnIndexOrThrow(varRepo.FeedEntry._ID));
-                    String title_t = cursor.getString(cursor.getColumnIndexOrThrow(varRepo.FeedEntry.COLUMN_NAME_TITLE));
-                    itemIds.add(itemId);
-                }
-                cursor.close();
+                db.insert(varRepo.FeedEntry.TABLE_NAME, null, values);
 
                 Intent i = new Intent(v.getContext(), MainActivity.class);
                 startActivity(i);
