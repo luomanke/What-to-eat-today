@@ -11,10 +11,10 @@ import static com.example.luoma.myapplication.varRepo.SQL_DELETE_ENTRIES;
  * Created by LuoMa on 09/27/2017.
  */
 
-public class FeedReaderDbHelper extends SQLiteOpenHelper {
+class FeedReaderDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "FeedReader.db";
 
     public FeedReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

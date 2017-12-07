@@ -6,7 +6,7 @@ import android.provider.BaseColumns;
  * Created by LuoMa on 09/25/2017.
  */
 
-public final class varRepo {
+final class varRepo {
 
     private varRepo() {}
 

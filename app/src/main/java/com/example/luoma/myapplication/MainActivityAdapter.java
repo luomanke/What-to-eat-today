@@ -21,27 +21,27 @@ import java.util.List;
  * Created by LuoMa on 10/10/2017.
  */
 
-public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     //our items
     private List mTitles;
     private List mRests;
     private static final int FOOTER_VIEW = 1;
-    OnItemSelectListener mOnItemSelectListener;
+    private OnItemSelectListener mOnItemSelectListener;
 
 
-    public MainActivityAdapter(List titles, List rests) {
+    MainActivityAdapter(List titles, List rests) {
         mTitles = titles;
         mRests = rests;
     }
 
-    public void setOnItemSelectListener(OnItemSelectListener mListener){
+    void setOnItemSelectListener(OnItemSelectListener mListener){
         this.mOnItemSelectListener = mListener;
     }
 
     // Define a view holder for Footer view
     public class FooterViewHolder extends ViewHolder {
-        public FooterViewHolder(View itemView) {
+        FooterViewHolder(View itemView) {
             super(itemView);
             mButton = (Button) itemView;
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -55,9 +55,13 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
     // Now define the viewholder for Normal list item
     public class NormalViewHolder extends ViewHolder {
-        public NormalViewHolder(View itemView) {
+        SwipeLayout mSwipeLayout;
+        BlurLayout mBlurLayout;
+
+        NormalViewHolder(View itemView) {
             super(itemView);
-            mSwipeView = (SwipeLayout) itemView;
+            mSwipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
+            mBlurLayout = (BlurLayout) itemView.findViewById(R.id.hover_layout);
         }
     }
 
@@ -67,12 +71,14 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
         ViewHolder vh;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (viewType == FOOTER_VIEW) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_item, parent, false);
+            v = inflater.inflate(R.layout.footer_item, parent, false);
             vh = new FooterViewHolder(v);
         }
         else {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+            v = inflater.inflate(R.layout.recyclerview_item, parent, false);
+            BlurLayout mBlurLayout = (BlurLayout) LayoutInflater.from(v.getContext()).inflate(R.layout.hover_layout, (ViewGroup) v, true);
             vh = new NormalViewHolder(v);
         }
         return vh;
@@ -168,16 +174,17 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     // So you're done with adding a footer and its action on onClick.
     // Now set the default ViewHolder for NormalViewHolder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         // Define elements of a row here
-        public SwipeLayout mSwipeView;
-        public Button mButton;
-        public ViewHolder(View itemView) {
+        SwipeLayout mSwipeView;
+        BlurLayout mBlurLayout;
+        Button mButton;
+        ViewHolder(View itemView) {
             super(itemView);
             // Find view by ID and initialize here
         }
 
-        public void bindView(int position, ViewHolder vh) {
+        void bindView(int position, ViewHolder vh) {
             // bindView() method to implement actions
         }
     }

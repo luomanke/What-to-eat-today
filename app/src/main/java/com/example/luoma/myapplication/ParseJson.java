@@ -12,7 +12,7 @@ import java.util.List;
  * Created by LuoMa on 10/25/2017.
  */
 
-public class ParseJson {
+class ParseJson {
 
     private String jsonData;
 

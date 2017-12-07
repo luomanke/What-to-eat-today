@@ -115,6 +115,8 @@ public class CreateActivity extends AppCompatActivity {
                 // Insert the new row, returning the primary key value of the new row
                 db.insert(varRepo.FeedEntry.TABLE_NAME, null, values);
 
+                // **************** END *** INSERT INTO DB *********************
+
                 Intent i = new Intent(v.getContext(), MainActivity.class);
                 startActivity(i);
             }

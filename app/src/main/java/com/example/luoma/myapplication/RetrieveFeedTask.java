@@ -14,11 +14,11 @@ import static com.example.luoma.myapplication.MainActivity.appToken;
  * Created by LuoMa on 10/19/2017.
  */
 
-public class RetrieveFeedTask extends AsyncTask<String, Void, String> {
+class RetrieveFeedTask extends AsyncTask<String, Void, String> {
     private Exception exception;
-    OkHttpClient client = new OkHttpClient();
+    private OkHttpClient client = new OkHttpClient();
 
-    public String run(String url) throws IOException {
+    private String run(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .header("Authorization", appToken)

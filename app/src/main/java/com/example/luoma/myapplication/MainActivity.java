@@ -24,7 +24,7 @@ import static com.example.luoma.myapplication.varRepo.FeedEntry.TABLE_NAME;
 public class MainActivity extends AppCompatActivity {
     public static final String appToken = "Bearer UXV4f0aKYr-gn8nAN7xjdU-hW7qZdcbVxfx0BmyrL9dm3HQU5rpTRMiihTH25HavVrBlWL8CjCBiYcp1lA2EFiT5LBeIo4gribwZT341Ga3KKE803w8JD8b__8PoWXYx";
 
-    private Random randomGenerator = new Random();
+    private final Random randomGenerator = new Random();
 
     private RecyclerView mRecyclerView;
     private MainActivityAdapter mAdapter;
@@ -97,16 +97,10 @@ public class MainActivity extends AppCompatActivity {
             long newRowId = db.insert(TABLE_NAME, null, values);
         }
 
-
-
         String[] projection = {
                 COLUMN_NAME_TITLE,
                 COLUMN_NAME_RESTAURANT
         };
-
-        // How you want the results sorted in the resulting Cursor
-//        String sortOrder =
-//                COLUMN_NAME_RESTAURANT + " DESC";
 
         final Cursor cursor = db.query(
                 TABLE_NAME,                     // The table to query
@@ -129,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
 
         // =================== END ==== GET DATA FROM SQLITE ==========================
-
-
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
